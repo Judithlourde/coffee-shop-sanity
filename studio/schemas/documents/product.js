@@ -6,7 +6,8 @@ export default {
 		{
 			title: 'Title',
 			name: 'title',
-			type: 'string'
+			type: 'string',
+			validation: Rule => Rule.required()
 		},
 		{
 			title: 'Slug',
@@ -15,7 +16,8 @@ export default {
 			options: {
 				source: 'title',
                 maxLength: 100
-			}
+			},
+			validation: Rule => Rule.required()
 		},     
         {
             title: 'Image',
