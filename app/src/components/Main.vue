@@ -68,6 +68,10 @@
 
 			document.title = 'Instant Coffee';
 
+			navigator.getBattery().then((battery)=>{
+				console.log(battery);
+			})
+
 		},
 	}
 </script>
@@ -90,6 +94,11 @@
 		align-items: center;
 		text-decoration: none;
 		color: inherit;
+		padding: 20px;
+	}
+
+	.allProducts__product a:hover {
+		padding: 0px;
 	}
 
 	.allProducts__product a > * {
@@ -100,13 +109,13 @@
 		z-index: 1;
 		color: var(--white);
         background-color: var(--black);
-        /* padding: var(--padding-small); */
+        padding: var(--padding-small);
 	}
 
 	.allProducts__product a button {
 		color: var(--white);
         background-color: var(--highlight);
-        /* padding: var(--padding-small); */
+        padding: var(--padding-small);
 	}
 
 	@media screen and (min-width: 968px) { 
