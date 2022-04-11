@@ -1,9 +1,9 @@
 :root {
 	/* font-size */
-	--heading: 1.6rem;
+	--heading: 1.4rem;
 	--body: 1rem;
 	--caption: 0.66rem;
-	--font-size: 1rem;
+	/* --font-size: 1rem; */
 	--font-family: 'Quicksand', sans-serif;
 
 	/* colors */
