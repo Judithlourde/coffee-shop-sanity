@@ -37,7 +37,8 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        /* margin-top: 100px; */
+        margin-top: 140px;
+        background-color: var(--footer-color);
     }
 
     footer ul {
@@ -50,7 +51,7 @@
     }
 
     footer ul li img {
-        width: 20vw;
+        width: 240px;
     }
 
     hr {
@@ -75,7 +76,7 @@
 
     .signup {
         width: 100%;
-        height: 10vw;
+        height: 100px;
         color: white;
         background: black;
         display: flex;
