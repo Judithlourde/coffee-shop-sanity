@@ -7,10 +7,12 @@
 	--font-family: 'Quicksand', sans-serif;
 
 	/* colors */
-	--primary: #000;
-	--secondary: #E3E3E3;
-	--highlight: #8E05C2;
-	--border-color: #F0F0F0;
+	--black: #000;
+	--white: #fff;
+	--secondary: #EE7675;
+	--highlight: #00C0BB;
+	--border-color: #FAFAFA;
+	--footer-color: #F0F0F0;
 
 	/* Margin */
 	--outside-margin: 0px 20px;

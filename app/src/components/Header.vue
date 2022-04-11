@@ -93,12 +93,11 @@
       position: absolute;
       left: 12px;
       bottom: 25px;
-      background-color: #EE7675;
-      color: #fff;
       padding: 1px 6px;
-      font-size: var(--points);
       border-radius: 100%;
       border-style: none;
+      color: var(--white);
+      background-color: var(--secondary);
    }
 
    @media screen and (min-width: 968px) { 
@@ -148,12 +147,11 @@
          position: absolute;
          left: 20px;
          bottom: 30px;
-         background-color: #EE7675;
-         color: #fff;
          padding: 1px 6px;
-         font-size: var(--points);
          border-radius: 100%;
          border-style: none;
+         color: var(--white);
+         background-color: var(--secondary);
       }
    }
 </style>

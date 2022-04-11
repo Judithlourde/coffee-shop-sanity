@@ -1,39 +1,25 @@
 <template>
-	<section>
+	<main>
+		<About />
 		<div v-if="loading">...</div>
 
-		<div v-else class="main" >
-			<section>
-				<div class="about">
-					<div class="about_heading">
-						<h1>FLAVOURED INSTANT</h1>
-					</div>
-				</div>
-
-				<div class="about_para">
-					<p>
-						In our humble opinion, this is the best flavoured instant
-						coffee in town. Made using high-quality, smooth Arabica beans,
-						Flavoured coffe is vegan friendly, four calories a cup sugar
-						free with nothing artificial in it whatsover. Plus, it comes
-						in fully recyclable, plastic-free jars.
-					</p>
-				</div>
-			</section>
-
-			<div class="main__product" v-for="product in result" :key="product._id">
-				<router-link :to="{ name: 'productPage', params: { productSlug: product.slug.current }}">
-					<h3>{{ product.title }}</h3>	
+		<div v-else class="allProducts" >
+			<div class="allProducts__product" v-for="product in result" :key="product._id">
+				<router-link :to="{ name: 'productPage', params: { productSlug: product.slug.current }}">	
 					<img :src="product.image.asset.url" :alt="product.image.caption">
-					<p>{{ product.price }}</p>
+					<h3>{{ product.title }}</h3>
+					<h4>Kr. {{ product.price }}</h4>
+					<p>Flavoured Instant Coffee</p>
+					<button>ADD TO BASKET</button>
 				</router-link>
 			</div>		
 		</div>
-	</section>
+	</main>
 	
 </template>
 
 <script>
+	import About from '../components/About.vue'
 	import sanityClient from '@sanity/client';
 
 	const sanity = sanityClient({
@@ -44,6 +30,9 @@
 	});
 
 	export default {
+		components: {
+			About
+		},
 		
 		data() {
 			return {
@@ -84,50 +73,56 @@
 </script>
 
 <style>
-.main {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-}
+	main {
+		position: relative;
+		top: 120px;
+	}
 
-.main__product {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+	.allProducts {
+		display: grid;
+		grid-template-columns: 1fr;
+	}
 
-}
+	.allProducts__product a {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		text-decoration: none;
+		color: inherit;
+	}
 
-/* About Section */
-.about {
-   align-items: center;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   background-image: url(/images/home.jpg);
-   background-size: cover;
-   flex-direction: column;
-   min-height: 30vh;
-   margin-bottom: 48px;
-   position: relative;
-   padding: 48px 0;
-}
+	.allProducts__product a > * {
+		padding: var(--padding-small);
+	}
 
-.about_heading {
-   position: absolute;
-   z-index: 1;
-   background-color: #000;
-   padding: var(--padding-small);
-}
+	.allProducts__product a h3 {
+		z-index: 1;
+		color: var(--white);
+        background-color: var(--black);
+        /* padding: var(--padding-small); */
+	}
 
-.about_heading h1 {
-   color: #fff;
-}
+	.allProducts__product a button {
+		color: var(--white);
+        background-color: var(--highlight);
+        /* padding: var(--padding-small); */
+	}
 
-.about_para {
-   max-width: 600px;
-   line-height: 1.875;
-   text-align: center;
-   margin: 0 auto;
-}
+	@media screen and (min-width: 968px) { 
+        .allProducts {
+			margin: 0 100px;
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		.allProducts__product a {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			margin: 20px 0;
+		}
+    }
 </style>
 
