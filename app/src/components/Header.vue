@@ -54,11 +54,10 @@
       width: 100vw;
       height: 100px;
       z-index: 200;
-      /* border-bottom: solid 1px var(--border-color); */
       padding: 30px 25px;
       transition: opacity .3s ease-in-out;
       background-color: rgba(255, 255, 255, 0.07);
-      backdrop-filter: saturate(180%) blur(20px);
+      backdrop-filter: saturate(180%) blur(20px);           /* Got tips from here: https://css-tricks.com/almanac/properties/b/backdrop-filter/ */
       box-shadow: 0 2px 4px 0 rgb(0 0 0 / 4%), 0 -1px 0 0 rgb(0 0 0 / 8%);
    }
 
@@ -121,7 +120,7 @@
 
       .navigation-desktop li {
          list-style: none;
-         margin: 0 30px;
+         margin: 0 20px;
       }
 
       .navigation-desktop li a {
