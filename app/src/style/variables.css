@@ -36,11 +36,5 @@
 	--padding-big: 40px;
 	--padding-medium: 20px;
 	--padding-small: 10px;
-
-	/* grid */
-	--gap-big: 50px;
-	--gap-medium: 10px;
-	--gap-small: 5px;
-	--grid-column-12: repeat(12, 1fr);
 }
 
