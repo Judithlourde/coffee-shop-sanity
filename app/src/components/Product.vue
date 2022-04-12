@@ -1,7 +1,12 @@
 <template>
-	<section>
+	<section class="test">
 		<div v-for="product in result" :key="product._id" class="product">
 			<div class="product__image">
+				<router-link :to="{ name: 'home' }">
+					<img src="/svg/back-arrow.svg" alt="go to back home arrow">
+					<h3>Back to Products</h3>
+				</router-link>	
+
 				<img :src="product.image.asset.url" :alt="product.image.caption">
 			</div>
 
@@ -112,10 +117,29 @@
 <style>
 	.product {
 		position: relative;
-		top: 80px;
+		top: 100px;
 		width: 100%;
 		display: grid;
 		grid-template-columns: 1fr;
+	}
+
+	.product__image {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.product__image a {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		text-decoration: none;
+		color: inherit;
+		gap: 10px;
+		margin: 20px;
+	}
+
+	.product__image a img {
+		width: 30px;
 	}
 
 	.product__description {
@@ -123,7 +147,7 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: flex-start;
-		margin: 0 30px;
+		margin: 0 20px;
 	}
 
 	.product__description h1 {
@@ -159,17 +183,23 @@
 	}
 	
 	.benefits-icons img {
-		object-fit: contain;
 		padding: 30px;
 		width: 100%;
 	}
+
 	@media screen and (min-width: 968px) {
 		.product {
 			grid-template-columns: repeat(2, 1fr);
+			top: 80px;
 		}
 
 		.product__image {
-			margin: 40px;
+			margin: 20px;	
+		}
+
+		.product__image a {
+			display: flex;
+			justify-content: center;
 		}
 
 		.product__image img {
@@ -180,7 +210,7 @@
 			display: flex;
 			justify-content: space-evenly;
 			align-items: flex-start;
-			margin: 60px;
+			margin: 40px;
 		}
 
 		.benefits-icons {
