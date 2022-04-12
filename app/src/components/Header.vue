@@ -1,8 +1,8 @@
 <template>
-   <header>
+   <header class="header">
       <!-- Navigation Menu -->
-      <nav>
-         <ul class="navigation-desktop">
+      <nav class="header__navigation">
+         <ul class="header__navigation-desktop">
             <li>
                <a href="#">
                   <span>About Us</span>
@@ -23,31 +23,60 @@
          </ul>
    
          <!-- Hamburger menu for mobile -->
-         <div class="navigation-mobile">
+         <div class="header__navigation-mobile">
             <img src="/svg/hamburger.svg" alt="icon for hamburger menu">
          </div>
 
          <!-- Logo -->
-         <a href="#" class="coffee-logo">
+         <a href="#" class="header__coffee-logo">
             <span><img src="/images/logo.png" alt="Judith's Coffee logo" /></span>
          </a>
            
-         <div class="cart">
-            <!-- <a href=""> -->
-               <span class="cart__jar-button">
-                  <img src="/images/jar.png" alt="cart-jar-images" />
+         <div class="header__cart" @click="openCartSection">
+            <span class="header__cart-jar-button">
+               <img src="/images/jar.png" alt="cart-jar-images" />
 
-                  <span class="cart__jar-button-count">0</span>
-               </span>                     
-            <!-- </a> -->
+               <span class="header__cart-count">0</span>
+            </span>                     
          </div>
       </nav>
+
+      <Cart
+         :toggleCart="cartSection"  
+
+         @close-cart="closeCartSection" 
+      />
    </header>
 </template>
 
+<script>
+   import Cart from '../components/Cart.vue'
+   export default {
+      components: {
+         Cart,
+      },
+
+      data() {
+         return {
+            cartSection: false,
+         }
+      },
+
+      methods: {
+         openCartSection() {
+            this.cartSection = !this.cartSection;
+         },
+
+         closeCartSection() {
+            this.cartSection = false;
+         }
+      }
+   }
+</script>
+
 <style>
    /* Header Section-Navigation-bar */
-   header {
+   .header {
       position: fixed;
       top: 0;
       left: 0;
@@ -61,38 +90,38 @@
       box-shadow: 0 2px 4px 0 rgb(0 0 0 / 4%), 0 -1px 0 0 rgb(0 0 0 / 8%);
    }
 
-   nav {
+   .header__navigation {
       display: flex;
       display: flex;
       align-items: center;
       justify-content: space-between;
    }
 
-   .navigation-desktop {
+   .header__navigation-desktop {
       display: none;
    }
 
-   .navigation-mobile {
+   .header__navigation-mobile {
       display: block;
    }
 
-   .coffee-logo span {
+   .header__coffee-logo span {
       display: block;
    }
 
-   .coffee-logo span img {
+   .header__coffee-logo span img {
       width: 60vw;
    }
 
-   .cart__jar-button {
+   .header__cart-jar-button {
       position: relative;
    }
 
-   .cart__jar-button img {
+   .header__cart-jar-button img {
       width: 6vw;
    }
 
-   .cart__jar-button-count {
+   .header__cart-count {
       position: absolute;
       left: 12px;
       bottom: 25px;
@@ -104,53 +133,53 @@
    }
 
    @media screen and (min-width: 968px) { 
-      header {
+      .header {
          padding: 10px 48px;
       }
 
-      .navigation-mobile {
+      .header__navigation-mobile {
          display: none;
       }
 
-      .navigation-desktop {
+      .header__navigation-desktop {
          display: flex;
          font-size: var(--heading);
          font-weight: 500;
       }
 
-      .navigation-desktop li {
+      .header__navigation-desktop li {
          list-style: none;
          margin: 0 20px;
       }
 
-      .navigation-desktop li a {
+      .header__navigation-desktop li a {
          display: inline-block;
          text-decoration: none;
          color: inherit;
       }
 
-      .navigation-desktop li a span {
+      .header__navigation-desktop li a span {
          display: inline-block;
          padding: 8px 16px;
       }
 
-      .coffee-logo {
+      .header__coffee-logo {
          flex: 1;
       }
 
-      .coffee-logo span img {
+      .header__coffee-logo span img {
          width: 300px;
       }
 
-      .cart__jar-button img {
+      .header__cart-jar-button img {
          width: 30px;
       }
 
-      .cart__jar-button-count {
+      .header__cart-count {
          position: absolute;
          left: 20px;
          bottom: 30px;
-         padding: 1px 6px;
+         padding: 1px 8px;
          border-radius: 100%;
          border-style: none;
          color: var(--white);
