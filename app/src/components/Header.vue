@@ -18,6 +18,7 @@
             <li>
                <a href="#">
                   <span>Contact Us</span>
+                  <p v-for="product in addedProduct" :key="product._id">{{ product.title }}</p>
                </a>
             </li>
          </ul>
@@ -36,7 +37,7 @@
             <span class="header__cart-jar-button">
                <img src="/images/jar.png" alt="cart-jar-images" />
 
-               <span class="header__cart-count">0</span>
+               <span class="header__cart-count">{{ productCount }}</span>
             </span>                     
          </div>
       </nav>
@@ -56,10 +57,20 @@
          Cart,
       },
 
+      props: {
+         addedProduct: { type: Array }   
+      },
+
       data() {
          return {
             cartSection: false,
          }
+      },
+
+      computed: {
+         productCount() {
+				return this.$store.getters.getCartLength;
+			}
       },
 
       methods: {
