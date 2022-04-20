@@ -12,18 +12,40 @@
                 </button>
             </header>
 
+            
             <div class="cart__products">
-                <h2>Your Basket is Empty</h2> 
+                <div v-if="productCount === 0">
+                    <h2>Your Basket is Empty</h2> 
 
-                <router-link :to="{ name:'home' }">
-                    <p>Continue to shopping...</p>
-                </router-link>
+                    <router-link :to="{ name:'home' }">
+                        <p>Continue to shopping...</p>
+                    </router-link>
+                </div>
+                
+                <div v-else class="cart__products-addedProducts" v-for="cartProduct in cartProducts" :key="cartProduct._id">
+                    <div>
+                        <img :src="cartProduct.image.asset.url" :alt="cartProduct.image.caption">
+                        <h4>{{ cartProduct.title }}</h4>
+                    </div>
+                    
+                    <button @click="deleteProduct(cartProduct)">
+                        <img src="/svg/delete.svg" alt="delete icon for deleting the selected products">
+                    </button>
+
+                    <div>
+                        <h4>{{ currency }} {{ cartProduct.price }}</h4>
+                        <h4></h4>
+
+                    </div>
+                    
+                </div>                
             </div>
 
-            <footer>
+            <footer class="cart__layout-footer">
                 <div>
                     <h5>SUBTOTAL</h5>
                     <h5>KR. 0.00</h5>
+                    
                 </div>
 
                 <p>
@@ -37,29 +59,46 @@
 <script>
     export default {
         props: {
-            toggleCart: {
-                type: Boolean
-            }
+            toggleCart: { type: Boolean },
+             
         },
 
         data() {
             return {
+                hei: 'hei',
                 
             }   
         },
 
+        computed: {
+            cartProducts() {
+                return this.$store.getters.getAddedProducts;
+            },
+
+            productCount() {
+                return this.$store.getters.getCartLength;
+            },
+
+            currency() {
+                return this.$store.getters.getCurrency;
+            },
+        },
+
         methods: {
             emitCloseCartSection() {
-                this.$emit('close-cart')
+                this.$emit('close-cart');
+            },
+
+            deleteProduct(cartProduct) {
+                this.$store.dispatch('deleteFromCart', cartProduct);
             }
-        }
+        },
     }
 </script>
 
 <style>
     /* Cart Section */
     .cart {
-        /* visibility: hidden; */
         position: fixed;
         top: 0;
         bottom: 0;
@@ -128,17 +167,30 @@
         padding: 40px 32px 40px 22px;
     }
 
-    .cart__products h3 {
-        text-align: center;
-        font-size: 2em;
-    }
-
-    .cart__products a {
+    .cart__products div a {
         text-decoration: none;
         color: inherit;
     }
+    .cart__products-addedProducts {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
 
-    .cart__layout > footer {
+    .cart__products-addedProducts div {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .cart__products-addedProducts div img {
+        width: 80px;
+    }
+
+    .cart__layout-footer {
         position: relative;
         display: flex;
         align-items: center;
@@ -148,7 +200,7 @@
         color: var(--white);
     }
 
-    .cart__layout > footer > div {
+    .cart__layout-footer > div {
         font-size: 1.5rem;
         padding-bottom: var(--padding-medium);
         width: 100%;
