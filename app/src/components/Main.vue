@@ -1,25 +1,35 @@
 <template>
 	<main>
 		<About />
-		<div v-if="loading">...</div>
+		<div v-if="loadingStatus">...</div>
 
 		<div v-else class="allProducts" >
-			<div class="allProducts__product" v-for="product in result" :key="product._id">
-				<router-link :to="{ name: 'productPage', params: { productSlug: product.slug.current }}">	
-					<img :src="product.image.asset.url" :alt="product.image.caption">
+			<div class="allProducts__product" v-for="product in products" :key="product._id">
+				<div>
+					<router-link :to="{ name: 'productPage', params: { productSlug: product.slug.current }}">	
+						<img :src="product.image.asset.url" :alt="product.image.caption">
+					</router-link>
+
 					<h3>{{ product.title }}</h3>
 					<h4>Kr. {{ product.price }}</h4>
 					<p>Flavoured Instant Coffee</p>
-					<button>ADD TO BASKET</button>
-				</router-link>
-			</div>		
-		</div>
+					<!-- When the add to basket clicked this method calls with the selected product -->
+					<button @click="addProductToCart(product)">ADD TO BASKET </button>	
+				</div>
+			</div>
+	
+			<Header
+				:addedProduct="addedProducts"
+			/>			
+		</div>	
 	</main>
 	
 </template>
 
 <script>
 	import About from '../components/About.vue'
+	import Header from '../components/Header.vue'
+
 	import sanityClient from '@sanity/client';
 
 	const sanity = sanityClient({
@@ -31,34 +41,18 @@
 
 	export default {
 		components: {
-			About
+			About,
+			Header
 		},
 		
 		data() {
 			return {
-					loading: true,
-					result: null
 				}
 		},
-
-		async created() {
-			const query = `
-				*[_type == $type] {
-                    ...,
-                    image {
-						...,
-                        asset-> { url }
-                    }
-                }		
-			`
-			const params = {
-				type: 'product'
-			};
-
-			this.result = await sanity.fetch(query, params);
-			console.log(this.result)
-			this.loading = false;
-
+		
+		created() { 
+			// Calling the fetchProducts when the page created because it is a async function
+			this.$store.dispatch('fetchProducts');
 			/* Head tags */
 
 			const head = {
@@ -68,11 +62,23 @@
 
 			document.title = 'Instant Coffee';
 
-			navigator.getBattery().then((battery)=>{
-				console.log(battery);
-			})
+        },
 
+		computed: {
+			products() {
+				return this.$store.getters.getProducts;
+			},
+
+			loadingStatus() {
+				return this.$store.getters.getLoadingStatus;
+			},
 		},
+
+		methods: {
+			addProductToCart(product) {
+				this.$store.dispatch('addToCart', product);
+			}
+		}
 	}
 </script>
 
@@ -87,7 +93,7 @@
 		grid-template-columns: 1fr;
 	}
 
-	.allProducts__product a {
+	.allProducts__product div {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -97,22 +103,22 @@
 		padding: 20px;
 	}
 
-	.allProducts__product a:hover {
+	.allProducts__product div:hover {
 		padding: 0px;
 	}
 
-	.allProducts__product a > * {
+	.allProducts__product div > * {
 		padding: var(--padding-small);
 	}
 
-	.allProducts__product a h3 {
+	.allProducts__product div h3 {
 		z-index: 1;
 		color: var(--white);
         background-color: var(--black);
         padding: var(--padding-small);
 	}
 
-	.allProducts__product a button {
+	.allProducts__product div button {
 		color: var(--white);
         background-color: var(--highlight);
         padding: var(--padding-small);
@@ -125,7 +131,7 @@
 			grid-template-columns: repeat(3, 1fr);
 		}
 
-		.allProducts__product a {
+		.allProducts__product div {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
