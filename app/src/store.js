@@ -5,6 +5,7 @@ export default {
 				currency: 'NOK',
 				cart: [],
 				products: null,
+				subTotal: 0,
 			},
 		}
 	},
@@ -20,6 +21,10 @@ export default {
 
 		getCurrency(state) {
 			return state.shop.currency;
+		},
+
+		getTotalAmount(state) {
+			return state.shop.subTotal;
 		}
 	},
 
@@ -40,12 +45,20 @@ export default {
 			}
 			 else {
 				 	const productWithCount = { 
-						 ...product, 
-						 count: 1 
+						...product, 
+						count: 1 
 					};
 					
 					state.shop.cart.push(productWithCount);
 				}
+		},
+
+		// Calculating total price 
+		totalPrice(state) { 
+			state.shop.subTotal = state.shop.cart.reduce ((price, cartItem) => {
+				return price + (cartItem.price * cartItem.count);
+			} ,0);
+			
 		},
 
 		// Remove the product from the cart
@@ -69,14 +82,17 @@ export default {
 
 		addToCart({state, commit}, product) {
 			commit('addToCart', product);
+			commit('totalPrice');
 		},
 
 		decreasingCountFromCart({state, commit}, index) {
 			commit('decreasingCountFromCart', index);
+			commit('totalPrice');
 		},
 
 		deleteProductFromCart({state, commit}, index) {
 			commit('deleteProductFromCart', index);
+			commit('totalPrice');
 		},
 	}
 }
