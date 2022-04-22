@@ -37,7 +37,8 @@
             <span class="header__cart-jar-button">
                <img src="/images/jar.png" alt="cart-jar-images" />
 
-               <span class="header__cart-count">{{ productCount }}</span>
+               <!-- https://www.codegrepper.com/code-examples/javascript/array+reduce+oneline#:~:text=%E2%80%9Carray%20reduce%20oneline%E2%80%9D%20Code%20Answer's&text=The%20reduce()%20method%20executes,returns%20a%20single%20output%20value. -->
+               <span class="header__cart-count">{{ cartProducts.reduce((number, countItem) => number + countItem.count, 0) }}</span>
             </span>                     
          </div>
       </nav>
@@ -68,9 +69,9 @@
       },
 
       computed: {
-         productCount() {
-				return this.$store.getters.getCartLength;
-			}
+         cartProducts() {
+            return this.$store.getters.getAddedProducts;
+         },
       },
 
       methods: {
