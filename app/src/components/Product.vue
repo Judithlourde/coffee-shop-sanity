@@ -1,5 +1,5 @@
 <template>
-	<section class="test">
+	<section>
 		<div v-for="product in result" :key="product._id" class="product">
 			<div class="product__image">
 				<router-link :to="{ name: 'home' }">
@@ -23,7 +23,7 @@
 					<p>{{ product.ingredients }}</p>
 				</div>
 				
-				<button>ADD TO BASKET</button>
+				<button @click="addProductToCart(product)">ADD TO BASKET</button>
 			</div>
 		</div>
 
@@ -57,60 +57,30 @@
 </template>
 
 <script>
-    import sanityClient from '@sanity/client';
-
-	const sanity = sanityClient({
-		projectId: 'i90q2xi5', 
-		dataset: 'production',
-		apiVersion: '2022-04-04',	
-		useCdn: 'false'				
-	});
+	import query from '../groq/productPage.groq?raw';
+	import viewMixin from '../mixins/viewMixin.js';
 
 	export default {
-		props: {
-            propertySlug: {
-                type: String
-            },
-        },
-		
-		data() {
-			return {
-					loading: true,
-					result: null
-				}
-		},
+		mixins: [viewMixin],
 
 		async created() {
-			const query = `
-				*[slug.current == $slug] {
-                    ...,
-                    image {
-                        ...,
-                        asset-> { url }
-                    },
-                    reviews[] {
-                        ...,
-                        customer-> {
-                            ...,
-                            image {
-                                asset-> { url }
-                            }
-                        }
-                    }
-                }
-			`			
-			const params = { 
-                slug: this.$route.params.productSlug 
-            };
-
-			this.result = await sanity.fetch(query, params);
-            console.log(this.result)
-			this.loading = false;
+			await this.sanityFetch(query, { 
+				slug: this.$route.params.productSlug
+			});
 
 			/* Head tags */
-			document.title = this.result[0].title
-			
+			this.metaTags({
+				title: this.result[0].title,
+				// description: this.result.description,
+				// image: this.result.documentation[0].asset.url
+			});
 		},
+
+		methods: {
+			addProductToCart(product) {
+				this.$store.dispatch('addToCart', product);
+			}
+		}
 	}
 </script>
 
