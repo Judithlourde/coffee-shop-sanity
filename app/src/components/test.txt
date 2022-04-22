@@ -181,3 +181,65 @@
 {
  "__eventID__" : "f11006ab-3a7a-492a-a660-62f749c7ed3c"
 }
+
+// Got tips from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
+// Set property to object(product if it not comes from API)
+
+// Object.defineProperty(payload, 'count', {
+// 	value: 1,
+// 	writable: true		// writable: true helps to change the value of count when it needs
+// });
+async fetchProducts({ state, commit }) {
+			// const query = `
+			// 	*[_type == $type] {
+			// 		...,
+			// 		image {
+			// 			...,
+			// 			asset-> { url }
+			// 		}
+			// 	}		
+			// `
+			// const params = {
+			// 	type: 'product'
+			// };
+
+			// const result = await sanity.fetch(query, params);
+			// console.log(result)
+			// const result = await sanity.fetch(query, { 
+			// 	type: 'product' 
+			// });
+			// state.loading = false;
+			
+			commit('handleProducts', result);
+		},
+// async created() {
+		// 	const query = `
+				// *[slug.current == $slug] {
+                //     ...,
+                //     image {
+                //         ...,
+                //         asset-> { url }
+                //     },
+                //     reviews[] {
+                //         ...,
+                //         customer-> {
+                //             ...,
+                //             image {
+                //                 asset-> { url }
+                //             }
+                //         }
+                //     }
+                // }
+		// 	`			
+		// 	const params = { 
+        //         slug: this.$route.params.productSlug 
+        //     };
+
+		// 	this.result = await sanity.fetch(query, params);
+        //     console.log(this.result)
+		// 	this.loading = false;
+
+		// 	/* Head tags */
+		// 	document.title = this.result[0].title
+			
+		// },
