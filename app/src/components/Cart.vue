@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="cartProducts__addedProducts-price">
-                        <h4>{{ currency }} {{ product.price }}</h4>
+                        <h4>{{ currency }} {{ product.price * product.count }}</h4>
                         
                         <div>
                             QTY:
@@ -55,6 +55,7 @@
                 <div>
                     <h5>SUBTOTAL</h5>
                     <!-- <h5>{{ cartProducts.reduce((number, product) => number + product.price, 0) }}</h5> -->
+                    <h5>{{ totalPrice }}</h5>
                     
                 </div>
 
@@ -86,6 +87,10 @@
             currency() {
                 return this.$store.getters.getCurrency;
             },
+
+            totalPrice() {
+                return this.$store.getters.getTotalAmount;
+            }
         },
 
         methods: {
