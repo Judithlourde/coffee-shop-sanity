@@ -13,8 +13,8 @@
             </header>
 
             
-            <div class="cart__products">
-                <div v-if="productCount === 0">
+            <div class="cart__layout-products cartProducts">
+                <div class="cartProducts__empty" v-if="cartProducts.length === 0">
                     <h2>Your Basket is Empty</h2> 
 
                     <router-link :to="{ name:'home' }">
@@ -22,20 +22,30 @@
                     </router-link>
                 </div>
                 
-                <div v-else class="cart__products-addedProducts" v-for="cartProduct in cartProducts" :key="cartProduct._id">
-                    <div>
-                        <img :src="cartProduct.image.asset.url" :alt="cartProduct.image.caption">
-                        <h4>{{ cartProduct.title }}</h4>
+                <div v-else class="cartProducts__addedProducts" v-for="(product, index) in cartProducts" :key="product._id">
+                    <div class="cartProducts__addedProducts-products">
+                        <div>
+                            <img :src="product.image.asset.url" :alt="product.image.caption">
+                            <h4>{{ product.title }}</h4>
+                        </div>
+                        
+                        <button @click="deleteProduct(index)">
+                            <img src="/svg/delete.svg" alt="delete icon for deleting the selected products">
+                        </button>
                     </div>
-                    
-                    <button @click="deleteProduct(cartProduct)">
-                        <img src="/svg/delete.svg" alt="delete icon for deleting the selected products">
-                    </button>
 
-                    <div>
-                        <h4>{{ currency }} {{ cartProduct.price }}</h4>
-                        <h4></h4>
+                    <div class="cartProducts__addedProducts-price">
+                        <h4>{{ currency }} {{ product.price }}</h4>
+                        
+                        <div>
+                            QTY:
+                            <p>{{ product.count }} </p>
 
+                            <div>
+                                <button @click="addProductToCart(product)">▲</button>
+                                <button @click="decreasingCount(index)">▼</button>
+                            </div>
+                        </div>
                     </div>
                     
                 </div>                
@@ -44,7 +54,7 @@
             <footer class="cart__layout-footer">
                 <div>
                     <h5>SUBTOTAL</h5>
-                    <h5>KR. 0.00</h5>
+                    <!-- <h5>{{ cartProducts.reduce((number, product) => number + product.price, 0) }}</h5> -->
                     
                 </div>
 
@@ -65,18 +75,12 @@
 
         data() {
             return {
-                hei: 'hei',
-                
             }   
         },
 
         computed: {
             cartProducts() {
                 return this.$store.getters.getAddedProducts;
-            },
-
-            productCount() {
-                return this.$store.getters.getCartLength;
             },
 
             currency() {
@@ -89,8 +93,16 @@
                 this.$emit('close-cart');
             },
 
-            deleteProduct(cartProduct) {
-                this.$store.dispatch('deleteFromCart', cartProduct);
+            addProductToCart(product) {
+				this.$store.dispatch('addToCart', product);
+			},
+
+            decreasingCount(index) {
+                this.$store.dispatch('decreasingCountFromCart', index);
+            },
+
+            deleteProduct(index) {
+                this.$store.dispatch('deleteProductFromCart', index);
             }
         },
     }
@@ -155,39 +167,77 @@
         text-align: center;
     }
 
-    .cart__products {
+    .cart__layout-products {
         display: flex;
         flex-direction: column;
         flex: auto;
         justify-content: center;
         align-items: center;
         z-index: 500;
-        overflow-y: auto;
+        /* overflow-y: scroll; */
         width: 100%;
-        padding: 40px 32px 40px 22px;
+        height: 100%;
+        padding: 10px 22px 0px 22px;
     }
 
-    .cart__products div a {
+    .cartProducts__empty {
+        text-align: center;
+    }
+
+    .cartProducts__empty a {
         text-decoration: none;
         color: inherit;
     }
-    .cart__products-addedProducts {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+    .cartProducts__addedProducts {
         width: 100%;
-        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
-    .cart__products-addedProducts div {
+    .cartProducts__addedProducts-products {
+        width: 100%;
         display: flex;
         flex-direction: row;
+        align-items: center;
         justify-content: space-between;
+    }
+
+    .cartProducts__addedProducts-products div {
+        display: flex;
         align-items: center;
     }
 
-    .cart__products-addedProducts div img {
-        width: 80px;
+    .cartProducts__addedProducts-products div img {
+        width: 50px;
+    }
+
+    .cartProducts__addedProducts-products button img {
+        width: 20px;
+    }
+
+    .cartProducts__addedProducts-price {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .cartProducts__addedProducts-price div {
+        display: flex;
+        align-items: center;
+    }
+
+    .cartProducts__addedProducts-price div p {
+        width: 40px;
+        text-align: center;
+        border: var(--black) solid 2px;
+    }
+
+    .cartProducts__addedProducts-price div div {
+        display: flex;
+        flex-direction: column;
+        margin: 5px;
     }
 
     .cart__layout-footer {
@@ -195,7 +245,7 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        padding: var(--padding-big);
+        padding: var(--padding-small);
         background-color: var(--highlight);
         color: var(--white);
     }
