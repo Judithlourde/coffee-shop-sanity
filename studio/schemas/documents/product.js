@@ -27,7 +27,7 @@ export default {
 				{
 					title: 'Caption',
 					name: 'caption',
-					type: 'text',
+					type: 'string',
 					options: {
 						isHighlighted: true
 					}
@@ -61,9 +61,10 @@ export default {
 			title: 'Reviews',
 			name: 'reviews',
 			type: 'array',
-            of: [
-                { type: 'review' }
-            ]
+            of: [{
+				type: 'reference',
+                to: [{ type: 'review' }]
+            }]
 		},
     ]
 }
