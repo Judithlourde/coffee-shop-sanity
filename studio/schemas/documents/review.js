@@ -1,7 +1,7 @@
 export default {
     title: 'Review',
     name: 'review',
-    type: 'object',
+    type: 'document',
     fields: [
         {
             title: 'Review Description',
