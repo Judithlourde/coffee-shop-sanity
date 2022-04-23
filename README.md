@@ -1,2 +1,2 @@
-# coffee-shop-sanity
-E-Commerce Project using Sanity - Content Management System
+Run npm install before start coding.
+Run npm run dev to diplay application on browser.
