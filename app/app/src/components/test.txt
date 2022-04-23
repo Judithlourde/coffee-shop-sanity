@@ -1,0 +1,245 @@
+<template>
+	<main>
+		<About />
+		<div v-if="loading">...</div>
+
+		<div v-else class="allProducts" >
+			<div class="allProducts__product" v-for="product in result" :key="product._id">
+				<div>
+					<router-link :to="{ name: 'productPage', params: { productSlug: product.slug.current }}">	
+						<img :src="product.image.asset.url" :alt="product.image.caption">
+					</router-link>
+
+					<h3>{{ product.title }}</h3>
+					<h4>Kr. {{ product.price }}</h4>
+					<p>Flavoured Instant Coffee</p>
+					<button @click="addProduct(product)">ADD TO BASKET </button>	
+				</div>
+			</div>
+			<!-- v-for="addedProduct in addedProducts"
+				:addedProduct="addedProduct"
+				:key="addedProduct._id" -->
+			<Header
+				:addedProduct="addedProducts"
+			/>			
+		</div>	
+	</main>
+	
+</template>
+
+<script>
+	import About from '../components/About.vue'
+	import Header from '../components/Header.vue'
+
+	import sanityClient from '@sanity/client';
+
+	const sanity = sanityClient({
+		projectId: 'i90q2xi5', 
+		dataset: 'production',
+		apiVersion: '2022-04-04',	
+		useCdn: 'false'				
+	});
+
+	export default {
+		components: {
+			About,
+			Header
+		},
+		
+		data() {
+			return {
+					loading: true,
+					result: null,
+					addedProducts: [],
+				}
+		},
+
+		async created() {
+			const query = `
+				*[_type == $type] {
+                    ...,
+                    image {
+						...,
+                        asset-> { url }
+                    }
+                }		
+			`
+			const params = {
+				type: 'product'
+			};
+
+			this.result = await sanity.fetch(query, params);
+			console.log(this.result)
+			this.loading = false;
+
+			/* Head tags */
+
+			const head = {
+				title: 'Front page',
+				// description: 
+			}
+
+			document.title = 'Instant Coffee';
+
+			// navigator.getBattery().then((battery)=>{
+			// 	console.log(battery);
+			// })
+
+		},
+
+		created() { 
+			// Calling the fetchProducts when the page created because it is a async function
+			this.$store.dispatch('fetchProducts');
+        },
+
+		methods: {
+			addProduct(product) {
+				this.addedProducts.push(product);
+				console.log(this.addedProducts)
+			},
+		}
+	}
+</script>
+
+<style>
+	main {
+		position: relative;
+		top: 120px;
+	}
+
+	.allProducts {
+		display: grid;
+		grid-template-columns: 1fr;
+	}
+
+	.allProducts__product div {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		text-decoration: none;
+		color: inherit;
+		padding: 20px;
+	}
+
+	.allProducts__product div:hover {
+		padding: 0px;
+	}
+
+	.allProducts__product div > * {
+		padding: var(--padding-small);
+	}
+
+	.allProducts__product div h3 {
+		z-index: 1;
+		color: var(--white);
+        background-color: var(--black);
+        padding: var(--padding-small);
+	}
+
+	.allProducts__product div button {
+		color: var(--white);
+        background-color: var(--highlight);
+        padding: var(--padding-small);
+	}
+
+	@media screen and (min-width: 968px) { 
+        .allProducts {
+			margin: 0 100px;
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		.allProducts__product div {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			margin: 20px 0;
+		}
+    }
+</style>
+
+*[_id == $__eventID__][0] {
+  ..., 
+   host-> {
+    name
+  },
+  cover {
+    asset-> {
+      url
+    }
+  },
+  image {
+    asset-> {
+      url
+    }
+  }, 
+ 
+}
+
+{
+ "__eventID__" : "f11006ab-3a7a-492a-a660-62f749c7ed3c"
+}
+
+// Got tips from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
+// Set property to object(product if it not comes from API)
+
+// Object.defineProperty(payload, 'count', {
+// 	value: 1,
+// 	writable: true		// writable: true helps to change the value of count when it needs
+// });
+async fetchProducts({ state, commit }) {
+			// const query = `
+			// 	*[_type == $type] {
+			// 		...,
+			// 		image {
+			// 			...,
+			// 			asset-> { url }
+			// 		}
+			// 	}		
+			// `
+			// const params = {
+			// 	type: 'product'
+			// };
+
+			// const result = await sanity.fetch(query, params);
+			// console.log(result)
+			// const result = await sanity.fetch(query, { 
+			// 	type: 'product' 
+			// });
+			// state.loading = false;
+			
+			commit('handleProducts', result);
+		},
+// async created() {
+		// 	const query = `
+				// *[slug.current == $slug] {
+                //     ...,
+                //     image {
+                //         ...,
+                //         asset-> { url }
+                //     },
+                //     reviews[] {
+                //         ...,
+                //         customer-> {
+                //             ...,
+                //             image {
+                //                 asset-> { url }
+                //             }
+                //         }
+                //     }
+                // }
+		// 	`			
+		// 	const params = { 
+        //         slug: this.$route.params.productSlug 
+        //     };
+
+		// 	this.result = await sanity.fetch(query, params);
+        //     console.log(this.result)
+		// 	this.loading = false;
+
+		// 	/* Head tags */
+		// 	document.title = this.result[0].title
+			
+		// },
