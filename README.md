@@ -2,7 +2,7 @@ This is a online instant flavoured coffee shop (prototype).
 Using sanity cms backend solution for the products data. 
 
 
-Functionality:
+Functionalities:
 
   - Adding and deleting products.
   - Increasing and decreasing products.
