@@ -1,4 +1,4 @@
-This is a online instant flavoured coffee shop prototype.
+This is a online instant flavoured coffee shop (prototype).
 Using sanity cms backend solution for the products data. 
 
 
