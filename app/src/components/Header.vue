@@ -10,7 +10,7 @@
             </li>
 
             <li>
-               <a href="#products">
+               <a href="#">
                   <span>Products</span>
                </a>
             </li>
