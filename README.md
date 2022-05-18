@@ -1,5 +1,5 @@
 This is a online instant flavoured coffee shop prototype.
-I used sanity cms backend solution for the products.
+I used sanity cms backend solution for the products data.
 
 Functionalities:
 
