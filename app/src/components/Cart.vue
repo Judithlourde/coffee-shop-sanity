@@ -68,8 +68,7 @@
 <script>
     export default {
         props: {
-            toggleCart: { type: Boolean },
-             
+            toggleCart: { type: Boolean },   
         },
 
         data() {

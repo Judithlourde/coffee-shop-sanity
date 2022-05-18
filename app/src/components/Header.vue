@@ -29,7 +29,7 @@
             <img src="/svg/hamburger.svg" alt="icon for hamburger menu">
          </div>
 
-         <!-- Logo -->
+         <!-- Logo link to the home-->
          <router-link :to="{ name: 'home' }" class="header__coffee-logo">
             <span><img src="/images/logo.png" alt="Judith's Coffee logo" /></span>
          </router-link>
@@ -39,7 +39,7 @@
                <img src="/images/jar.png" alt="cart-jar-image" />
 
                <!-- https://www.codegrepper.com/code-examples/javascript/array+reduce+oneline#:~:text=%E2%80%9Carray%20reduce%20oneline%E2%80%9D%20Code%20Answer's&text=The%20reduce()%20method%20executes,returns%20a%20single%20output%20value. -->
-               <!-- Array method reduce calculate the total number of products in cart -->
+               <!-- Array method reduce calculate the total number of products in the cart -->
                <span class="header__cart-count">{{ cartProducts.reduce((number, countItem) => number + countItem.count, 0) }}</span>
             </span>                     
          </button>

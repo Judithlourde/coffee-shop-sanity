@@ -19,7 +19,7 @@
 </template>
 
 <style>
-    	/* About Section */
+    /* About Section */
 	.about {
         display: flex;
         justify-content: center;
