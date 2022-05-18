@@ -29,9 +29,9 @@
          </div>
 
          <!-- Logo -->
-         <a href="#" class="header__coffee-logo">
+         <router-link :to="{ name: 'home' }" class="header__coffee-logo">
             <span><img src="/images/logo.png" alt="Judith's Coffee logo" /></span>
-         </a>
+         </router-link>
            
          <div class="header__cart" @click="openCartSection">
             <span class="header__cart-jar-button">
