@@ -3,9 +3,10 @@
       <!-- Navigation Menu -->
       <nav class="header__navigation">
          <ul class="header__navigation-desktop">
+            <!-- Navigation links not working yet -->
             <li>
                <a href="#">
-                  <span>About Us</span>
+                  <span>About</span>
                </a>
             </li>
 
@@ -20,10 +21,10 @@
                   <span>Contact Us</span>
                   <p v-for="product in addedProduct" :key="product._id">{{ product.title }}</p>
                </a>
-            </li>
+            </li> 
          </ul>
    
-         <!-- Hamburger menu for mobile -->
+         <!-- Hamburger menu for mobile not working yet -->
          <div class="header__navigation-mobile">
             <img src="/svg/hamburger.svg" alt="icon for hamburger menu">
          </div>
@@ -33,16 +34,18 @@
             <span><img src="/images/logo.png" alt="Judith's Coffee logo" /></span>
          </router-link>
            
-         <div class="header__cart" @click="openCartSection">
+         <button class="header__cart" @click="openCartSection">
             <span class="header__cart-jar-button">
-               <img src="/images/jar.png" alt="cart-jar-images" />
+               <img src="/images/jar.png" alt="cart-jar-image" />
 
                <!-- https://www.codegrepper.com/code-examples/javascript/array+reduce+oneline#:~:text=%E2%80%9Carray%20reduce%20oneline%E2%80%9D%20Code%20Answer's&text=The%20reduce()%20method%20executes,returns%20a%20single%20output%20value. -->
+               <!-- Array method reduce calculate the total number of products in cart -->
                <span class="header__cart-count">{{ cartProducts.reduce((number, countItem) => number + countItem.count, 0) }}</span>
             </span>                     
-         </div>
+         </button>
       </nav>
 
+      <!-- props for the Cart component -->
       <Cart
          :toggleCart="cartSection"  
 
@@ -161,7 +164,7 @@
 
       .header__navigation-desktop li {
          list-style: none;
-         margin: 0 20px;
+         margin: 0 10px;
       }
 
       .header__navigation-desktop li a {
@@ -191,7 +194,7 @@
          position: absolute;
          left: 20px;
          bottom: 30px;
-         padding: 1px 8px;
+         padding: 3px 10px;
          border-radius: 100%;
          border-style: none;
          color: var(--white);
