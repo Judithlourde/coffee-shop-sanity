@@ -55,8 +55,7 @@
                 <div>
                     <h5>SUBTOTAL</h5>
                     <!-- <h5>{{ cartProducts.reduce((number, product) => number + product.price, 0) }}</h5> -->
-                    <h5>{{ totalPrice }}</h5>
-                    
+                    <h5>{{ totalPrice }}</h5>   
                 </div>
 
                 <p>
