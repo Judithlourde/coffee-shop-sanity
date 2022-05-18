@@ -1,6 +1,7 @@
 <template>
 	<section>
-		<div v-for="product in result" :key="product._id" class="product">
+		<div v-if="loading">...</div> 
+		<div v-else v-for="product in result" :key="product._id" class="product">
 			<div class="product__image">
 				<router-link :to="{ name: 'home' }">
 					<img src="/svg/back-arrow.svg" alt="go to back home arrow">
