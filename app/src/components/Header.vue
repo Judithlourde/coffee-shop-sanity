@@ -5,19 +5,19 @@
          <ul class="header__navigation-desktop">
             <!-- Navigation links not working yet -->
             <li>
-               <a href="#">
+               <a href="#about">
                   <span>About</span>
                </a>
             </li>
 
             <li>
-               <a href="#">
+               <a href="#products">
                   <span>Products</span>
                </a>
             </li>
 
             <li>
-               <a href="#">
+               <a href="#contact">
                   <span>Contact Us</span>
                   <p v-for="product in addedProduct" :key="product._id">{{ product.title }}</p>
                </a>
@@ -34,7 +34,7 @@
             <span><img src="/images/logo.png" alt="Judith's Coffee logo" /></span>
          </router-link>
            
-         <button class="header__cart" @click="openCartSection">
+         <button aria-label="open cart" class="header__cart" @click="openCartSection">
             <span class="header__cart-jar-button">
                <img src="/images/jar.png" alt="cart-jar-image" />
 
@@ -47,6 +47,7 @@
 
       <!-- props for the Cart component -->
       <Cart
+         class="isVisible"
          :toggleCart="cartSection"  
 
          @close-cart="closeCartSection" 
