@@ -88,7 +88,7 @@
 		align-items: center;
 		text-decoration: none;
 		color: inherit;
-		padding: 20px;
+		padding: var(--padding-small);
 	}
 
 	.allProducts__product div:hover {
@@ -103,13 +103,13 @@
 		z-index: 1;
 		color: var(--white);
         background-color: var(--black);
-        padding: var(--padding-small);
+        padding: var(--padding-xsmall);
 	}
 
 	.allProducts__product div button {
 		color: var(--white);
         background-color: var(--highlight);
-        padding: var(--padding-small);
+        padding: var(--padding-xsmall) var(--padding-small);
 	}
 
 	@media screen and (min-width: 968px) { 
@@ -124,7 +124,7 @@
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
-			margin: 20px 0;
+			margin: var(--margin-small) 0;
 		}
     }
 </style>

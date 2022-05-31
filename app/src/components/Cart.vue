@@ -149,7 +149,7 @@
         max-width: 500px;
         height: 100%;
         width: 100%;
-        background-color: #fff;
+        background-color: var(--white);
     }
 
     .cart__layout-header {

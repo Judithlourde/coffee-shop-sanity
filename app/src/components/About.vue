@@ -36,11 +36,11 @@
     .about_heading {
         z-index: 1;
         background-color: #000;
-        padding: var(--padding-small);
+        padding: var(--padding-xsmall);
     }
 
     .about_heading h1 {
-        color: #fff;
+        color: var(--white);
     }
 
     .about_para {
@@ -48,7 +48,7 @@
         line-height: 1.875;
         text-align: center;
         margin: 0 auto;
-        padding: 20px;
+        padding: var(--padding-small);
     }
 
     @media screen and (min-width: 968px) { 

@@ -149,7 +149,7 @@
 
    @media screen and (min-width: 968px) { 
       .header {
-         padding: 10px 48px;
+         padding: var(--padding-xsmall) 48px;
       }
 
       .header__navigation-mobile {
@@ -164,7 +164,7 @@
 
       .header__navigation-desktop li {
          list-style: none;
-         margin: 0 10px;
+         margin: 0 var(--margin-xsmall);
       }
 
       .header__navigation-desktop li a {
@@ -194,7 +194,7 @@
          position: absolute;
          left: 20px;
          bottom: 30px;
-         padding: 3px 10px;
+         padding: 3px var(--padding-xsmall);
          border-radius: 100%;
          border-style: none;
          color: var(--white);

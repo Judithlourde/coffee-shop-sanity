@@ -48,7 +48,7 @@
     }
 
     footer ul li {
-        padding-bottom: 10px;
+        padding-bottom: var(--bottom-xsmall);
     }
 
     footer ul li img {
@@ -56,7 +56,7 @@
     }
 
     hr {
-        margin: 0 55px 10px 55px;
+        margin: 0 55px var(--bottom-xsmall) 55px;
         border-color: #00C0BB;
         border-style: solid;
         border-bottom-width: 2px;
@@ -68,7 +68,7 @@
     .social-icons {
         display: flex;
         justify-content: space-between;
-        padding: 20px;
+        padding: var(--padding-small);
     }
 
     .social-icons img {
@@ -87,6 +87,6 @@
     }
 
     .signup p {
-        padding-bottom: 10px;
+        padding-bottom: var(--bottom-xsmall);
     }
 </style>

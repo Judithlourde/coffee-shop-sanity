@@ -106,7 +106,7 @@
 		text-decoration: none;
 		color: inherit;
 		gap: 10px;
-		margin: 20px;
+		margin: var(--margin-small);
 	}
 
 	.product__image a img {
@@ -118,14 +118,14 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: flex-start;
-		margin: 0 20px;
+		margin: 0 var(--margin-small);
 	}
 
 	.product__description h1 {
 		z-index: 1;
 		color: var(--white);
         background-color: var(--black);
-		padding: var(--padding-small);
+		padding: var(--padding-xsmall);
 		margin-bottom: var(--bottom-small);
 	}
 
@@ -137,7 +137,7 @@
 	.product__description button {
 		color: var(--white);
         background-color: var(--highlight);
-        padding: var(--padding-small);
+        padding: var(--padding-xsmall);
 	}
 
 	.benefits-icons {
@@ -165,7 +165,7 @@
 		}
 
 		.product__image {
-			margin: 20px;	
+			margin: var(--margin-small);	
 		}
 
 		.product__image a {
@@ -181,7 +181,7 @@
 			display: flex;
 			justify-content: space-evenly;
 			align-items: flex-start;
-			margin: 40px;
+			margin: var(--margin-medium);
 		}
 
 		.benefits-icons {
