@@ -3,7 +3,7 @@
 		<About />
 		<div v-if="loading">...</div>
 
-		<div v-else class="allProducts" >
+		<div v-else id="products" class="allProducts" >
 			<div class="allProducts__product" v-for="product in products" :key="product._id">
 				<div>
 					<router-link :to="{ name: 'productPage', params: { productSlug: product.slug.current }}">	
