@@ -1,25 +1,29 @@
 <template>
     <!-- The cart section only appears when the person clicks the jar-icon (cart-icon) -->
     <section class="cart" v-if="toggleCart">
-        <div class="cart__background"></div>
+        <!-- <div @click="openSidePanel" :class="{ sidePanelVisible: !isSidePanelVisible }" class="cart__background"></div> -->
+        <div @click="emitCloseCartSection()" class="cart__background"></div>
 
-        <div class="cart__layout">
+        <!-- Toggling the side-panel background color by dynamic class name -->
+        <div @click="closeSidePanel" class="cart__layout" :class="{ sidePanelVisible: !isSidePanelVisible }">
             <header class="cart__layout-header">
                 <h1>My Basket</h1>
 
-                <button  @click="emitCloseCartSection()"> 
-                    <img src="/svg/close-icon.svg" alt="close icon in the filled circle">
+                <button aria-label="close" @click="emitCloseCartSection(); closeSidePanel()"> 
+                    <img src="/svg/close-icon.svg" alt="close icon in the backgroung filled with black color circle">
                 </button>
             </header>
 
             
             <div class="cart__layout-products cartProducts">
+                <!-- Here i do check the cart array's length, if cart length is 0 it means cart is empty  -->
+                <!-- If cart haven't any products cart section shows your cart is empty message -->
                 <div class="cartProducts__empty" v-if="cartProducts.length === 0">
                     <h2>Your Basket is Empty</h2> 
 
-                    <router-link :to="{ name:'home' }">
+                    <button aria-label="close cart and continue to shopping" @click="emitCloseCartSection()">
                         <p>Continue to shopping...</p>
-                    </router-link>
+                    </button>                    
                 </div>
                 
                 <div v-else class="cartProducts__addedProducts" v-for="(product, index) in cartProducts" :key="product._id">
@@ -47,14 +51,13 @@
                             </div>
                         </div>
                     </div>
-                    
                 </div>                
             </div>
 
             <footer class="cart__layout-footer">
                 <div>
                     <h5>SUBTOTAL</h5>
-                    <h5>{{ totalPrice }}</h5>   
+                    <h5>{{ currency }} {{ totalPrice }}</h5>   
                 </div>
 
                 <p>
@@ -73,6 +76,7 @@
 
         data() {
             return {
+                isSidePanelVisible: false,
             }   
         },
 
@@ -91,6 +95,14 @@
         },
 
         methods: {
+            openSidePanel() {
+				this.isSidePanelVisible = true;
+			},
+
+			closeSidePanel() {
+				this.isSidePanelVisible = !this.isSidePanelVisible;
+			},
+
             emitCloseCartSection() {
                 this.$emit('close-cart');
             },
@@ -132,13 +144,13 @@
         left: 0;
         width: 100%;
         height: 100%;
+        z-index: -1000;
         object-fit: cover;
         opacity: 0.8;
         background-color: rgba(17, 17, 17, 0.7);
     }
 
-    .cart__layout {
-        transform: translateX(0);
+    .sidePanelVisible {
         position: absolute;
         top: 0;
         bottom: 0;
@@ -150,7 +162,52 @@
         height: 100%;
         width: 100%;
         background-color: var(--white);
+        transition: all .3s ease-in-out;
+        transition-property: all;
+		animation: slideOut .7s ease-in;
+	}
+
+    @keyframes slideOut {
+		0%{
+			transform: skewY(1deg) translateY(-400px);
+		}
+		60%{
+			transform: translateX(0px);
+		}
+		100%{
+			transform: skew(0deg);
+		}
+	}
+
+    .cart__layout {
+        /* transform: translateX(0); */
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        /* align-items: center; */
+        max-width: 500px;
+        height: 100%;
+        width: 100%;
+        background-color: var(--white);
+        transition: all .3s ease-in-out;
+        transition-property: all;
+        animation: slideIn .7s ease-in;
     }
+
+    @keyframes slideIn {
+		0%{
+			transform: skewX(1deg) translateX(400px);
+		}
+		60%{
+			transform: translateX(0px);
+		}
+		100%{
+			transform: skew(0deg);
+		}
+	}
 
     .cart__layout-header {
         display: flex;
