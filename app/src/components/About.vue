@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div id="about" class="about">
+        <div class="about">
             <div class="about_heading">
                 <h1>FLAVOURED INSTANT</h1>
             </div>
