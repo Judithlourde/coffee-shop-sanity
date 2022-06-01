@@ -5,22 +5,15 @@
          <ul class="header__navigation-desktop">
             <!-- Navigation links not working yet -->
             <li>
-               <a href="#about">
-                  <span>About</span>
-               </a>
+               <span>About</span>  
             </li>
 
             <li>
-               <a href="#products">
-                  <span>Products</span>
-               </a>
+               <span>Products</span>
             </li>
 
             <li>
-               <a href="#contact">
-                  <span>Contact Us</span>
-                  <p v-for="product in addedProduct" :key="product._id">{{ product.title }}</p>
-               </a>
+               <span>Contact Us</span>
             </li> 
          </ul>
    
@@ -60,10 +53,6 @@
    export default {
       components: {
          Cart,
-      },
-
-      props: {
-         addedProduct: { type: Array }   
       },
 
       data() {
@@ -168,19 +157,17 @@
          margin: 0 var(--margin-xsmall);
       }
 
-      .header__navigation-desktop li a {
-         display: inline-block;
-         text-decoration: none;
-         color: inherit;
-      }
-
-      .header__navigation-desktop li a span {
+      .header__navigation-desktop li span {
          display: inline-block;
          padding: 8px 16px;
       }
 
       .header__coffee-logo {
          flex: 1;
+      }
+
+      .header__coffee-logo span {
+         padding: 0 var(--padding-small);
       }
 
       .header__coffee-logo span img {
