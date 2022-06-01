@@ -3,7 +3,7 @@
 		<About />
 		<div v-if="loading">...</div>
 
-		<div v-else id="products" class="allProducts" >
+		<div v-else class="allProducts" >
 			<div class="allProducts__product" v-for="product in products" :key="product._id">
 				<div>
 					<router-link :to="{ name: 'productPage', params: { productSlug: product.slug.current }}">	
@@ -14,7 +14,7 @@
 					<h4>Kr. {{ product.price }}</h4>
 					<p>Flavoured Instant Coffee</p>
 					<!-- When the add to basket clicked this method calls with the selected product -->
-					<button @click="addProductToCart(product)">ADD TO BASKET </button>	
+					<button aria-label="add to basket" @click="addProductToCart(product)">ADD TO BASKET </button>	
 				</div>
 			</div>
 	
