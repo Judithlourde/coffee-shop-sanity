@@ -24,7 +24,7 @@
 					<p>{{ product.ingredients }}</p>
 				</div>
 				
-				<button @click="addProductToCart(product)">ADD TO BASKET</button>
+				<button aria-label="add to basket" @click="addProductToCart(product)">ADD TO BASKET</button>
 			</div>
 		</div>
 
@@ -72,8 +72,6 @@
 			/* Head tags */
 			this.metaTags({
 				title: this.result[0].title,
-				// description: this.result.description,
-				// image: this.result.documentation[0].asset.url
 			});
 		},
 
