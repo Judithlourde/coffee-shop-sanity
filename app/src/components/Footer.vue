@@ -1,5 +1,5 @@
 <template>
-    <footer id="contact">
+    <footer>
         <ul>
             <li><img src="/images/logo.png" alt="Judith's Coffee logo"></li>
             <li>Get in touch</li>
